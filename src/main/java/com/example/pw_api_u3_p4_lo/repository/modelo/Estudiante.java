@@ -25,7 +25,7 @@ public class Estudiante {
     private String nombre;
     @Column(name = "estu_apellido")
     private String apellido;
-    @Column(name = "estu_fechaNacimiento")
+    @Column(name = "estu_fecha_nacimiento")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime fechaNacimiento;
     @Column(name = "estu_cedula")

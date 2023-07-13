@@ -25,5 +25,12 @@ public class EstudianteServiceImpl implements IEstudianteService{
     }
 
 
+    @Override
+    public void guardar(Estudiante estudiante) {
+
+        this.estuRepo.insertar(estudiante);
+    }
+
+
 
 }

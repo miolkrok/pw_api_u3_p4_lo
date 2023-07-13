@@ -25,6 +25,12 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository{
 
     }
 
+    @Override
+    public void insertar(Estudiante estudiante) {
+
+        this.entityManager.persist(estudiante);
+    }
+
 
 
 }

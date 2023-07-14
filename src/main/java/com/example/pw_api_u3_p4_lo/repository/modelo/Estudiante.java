@@ -30,36 +30,55 @@ public class Estudiante {
     private LocalDateTime fechaNacimiento;
     @Column(name = "estu_cedula")
     private String cedula;
+    @Column(name = "estu_provincia")
+    private String provincia;
 
     public Integer getId() {
         return id;
     }
+
     public void setId(Integer id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getApellido() {
         return apellido;
     }
+
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     public LocalDateTime getFechaNacimiento() {
         return fechaNacimiento;
     }
+
     public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+
     public String getCedula() {
         return cedula;
     }
+
     public void setCedula(String cedula) {
         this.cedula = cedula;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
     }
 
     @Override
@@ -67,6 +86,5 @@ public class Estudiante {
         return "Estudiante [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
                 + fechaNacimiento + ", cedula=" + cedula + "]";
     }
-    
 
 }

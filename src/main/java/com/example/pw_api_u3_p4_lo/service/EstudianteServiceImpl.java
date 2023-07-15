@@ -55,8 +55,13 @@ public class EstudianteServiceImpl implements IEstudianteService {
     }
 
     @Override
-    public List<Estudiante> buscarTodos(String provincia) {
-        return this.estuRepo.buscarTodos(provincia);
+    public List<Estudiante> buscarTodosProv(String provincia) {
+        return this.estuRepo.buscarTodosProv(provincia);
+    }
+
+    @Override
+    public List<Estudiante> buscarTodos() {
+         return this.estuRepo.buscarTodos();
     }
 
 }

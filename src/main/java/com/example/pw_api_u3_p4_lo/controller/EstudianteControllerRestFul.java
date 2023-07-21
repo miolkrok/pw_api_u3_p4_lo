@@ -3,6 +3,9 @@ package com.example.pw_api_u3_p4_lo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,20 +29,31 @@ public class EstudianteControllerRestFul {
 
     // GET
     @GetMapping(path = "/{cedula}")
-    public Estudiante consultarPorCedula(@PathVariable String cedula) {
-        return this.estudianteService.consultarPorCedula(cedula);
+    public ResponseEntity<Estudiante> consultarPorCedula(@PathVariable String cedula) {
+        // return this.estudianteService.consultarPorCedula(cedula);
+        return ResponseEntity.status(227).body(this.estudianteService.consultarPorCedula(cedula));
+    }
+        @GetMapping(path = "/status/{cedula}")
+    public ResponseEntity<Estudiante> consultarPorCedulaStatus(@PathVariable String cedula) {
+        // return this.estudianteService.consultarPorCedula(cedula);
+        return ResponseEntity.status(HttpStatus.OK).body(this.estudianteService.consultarPorCedula(cedula));
     }
 
-    //@GetMapping()
-    //public List<Estudiante> consultarTodos() {
+    // @GetMapping()
+    // public List<Estudiante> consultarTodos() {
 
-        //return this.estudianteService.buscarTodos();
-    //}
+    // return this.estudianteService.buscarTodos();
+    // }
 
     @GetMapping
-    public List<Estudiante> consultarTodosProv(@RequestParam String provincia) {
+    public ResponseEntity<List<Estudiante>> consultarTodosProv(@RequestParam String provincia) {
 
-        return this.estudianteService.buscarTodosProv(provincia);
+        //return this.estudianteService.buscarTodosProv(provincia);
+        List<Estudiante> lista = this.estudianteService.buscarTodosProv(provincia);
+        HttpHeaders cabeceras = new HttpHeaders();
+        cabeceras.add("detalleMensaje", "Ciudadanos consultados exitosamente");
+        cabeceras.add("valorAPI", "Incalculable");
+        return new ResponseEntity<>(lista, cabeceras, 228);
     }
 
     @PostMapping
@@ -61,7 +75,6 @@ public class EstudianteControllerRestFul {
         estu1.setCedula(estudiante.getCedula());
         this.estudianteService.actualizarParcial(estu1);
     }
-
 
     @DeleteMapping(path = "/{id}")
     public void borrar(@PathVariable Integer id) {

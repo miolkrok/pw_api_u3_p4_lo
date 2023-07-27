@@ -1,6 +1,7 @@
 package com.example.pw_api_u3_p4_lo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import jakarta.transaction.Transactional;
 
 import com.example.pw_api_u3_p4_lo.repository.IEstudianteRepository;
 import com.example.pw_api_u3_p4_lo.repository.modelo.Estudiante;
+import com.example.pw_api_u3_p4_lo.service.to.EstudianteTO;
 
 @Service
 @Transactional
@@ -64,4 +66,21 @@ public class EstudianteServiceImpl implements IEstudianteService {
          return this.estuRepo.buscarTodos();
     }
 
+    @Override
+    public List<EstudianteTO> buscarTodosTO() {
+        List<Estudiante> lista = this.estuRepo.buscarTodos();
+        List<EstudianteTO> listaTO = lista.stream().map(estudiante->this.convertir(estudiante)).collect(Collectors.toList());
+        return listaTO;
+    }
+
+    private EstudianteTO convertir(Estudiante estudiante){
+        EstudianteTO est= new EstudianteTO();
+        est.setId(estudiante.getId());
+        est.setApellido(estudiante.getApellido());
+        est.setCedula(estudiante.getCedula());
+        est.setFechaNacimiento(estudiante.getFechaNacimiento());
+        est.setNombre(estudiante.getNombre());
+        est.setProvincia(estudiante.getProvincia());
+        return est;
+    }
 }

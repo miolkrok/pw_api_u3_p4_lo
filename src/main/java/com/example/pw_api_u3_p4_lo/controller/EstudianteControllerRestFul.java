@@ -3,6 +3,7 @@ package com.example.pw_api_u3_p4_lo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pw_api_u3_p4_lo.repository.modelo.Estudiante;
 import com.example.pw_api_u3_p4_lo.service.IEstudianteService;
+import com.example.pw_api_u3_p4_lo.service.to.EstudianteTO;
+import com.example.pw_api_u3_p4_lo.service.to.MateriaTO;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/estudiantes")
@@ -61,15 +67,32 @@ public class EstudianteControllerRestFul {
     // return this.estudianteService.buscarTodos();
     // }
 
+    // GETMAPPING SIN HATEOAS
     @GetMapping
-    public ResponseEntity<List<Estudiante>> consultarTodosProv(@RequestParam String provincia) {
+    public ResponseEntity<List<Estudiante>> consultarTodosProv(@RequestParam
+    String provincia) {
 
-        // return this.estudianteService.buscarTodosProv(provincia);
-        List<Estudiante> lista = this.estudianteService.buscarTodosProv(provincia);
-        HttpHeaders cabeceras = new HttpHeaders();
-        cabeceras.add("detalleMensaje", "Ciudadanos consultados exitosamente");
-        cabeceras.add("valorAPI", "Incalculable");
-        return new ResponseEntity<>(lista, cabeceras, 228);
+    // return this.estudianteService.buscarTodosProv(provincia);
+    List<Estudiante> lista = this.estudianteService.buscarTodosProv(provincia);
+    HttpHeaders cabeceras = new HttpHeaders();
+    cabeceras.add("detalleMensaje", "Ciudadanos consultados exitosamente");
+    cabeceras.add("valorAPI", "Incalculable");
+    return new ResponseEntity<>(lista, cabeceras, 228);
+    }
+
+    @GetMapping(path = "/hateoas")
+    public ResponseEntity<List<EstudianteTO>> consultarTodosHateoas() {
+        List<EstudianteTO> lista = this.estudianteService.buscarTodosTO();
+        
+        for(EstudianteTO e: lista){
+            Link myLink = linkTo(methodOn(EstudianteControllerRestFul.class).buscarPorEstudiante(e.getCedula())).withRel("materias");
+            e.add(myLink);
+        }
+        return new ResponseEntity<>(lista, null,200);
+    }
+    @GetMapping(path = "/{cedula}/materias")
+    public ResponseEntity<List<MateriaTO>> buscarPorEstudiante(@PathVariable String cedula){
+        return null;
     }
 
     // @PostMapping(consumes = "application/xml")
@@ -78,11 +101,11 @@ public class EstudianteControllerRestFul {
     // }
 
     @PostMapping(path = "/{cedula}", produces = "application/xml", consumes = "application/xml")
-    public Estudiante guardar(@RequestBody Estudiante estudiante,@PathVariable String cedula) {
+    public Estudiante guardar(@RequestBody Estudiante estudiante, @PathVariable String cedula) {
         estudiante.setCedula(cedula);
         this.estudianteService.guardar(estudiante);
         return this.estudianteService.consultarPorCedula(estudiante.getCedula());
-         
+
     }
 
     @PutMapping(path = "/{identificador}")

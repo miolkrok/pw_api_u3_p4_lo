@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -19,11 +21,13 @@ public class Materia {
     private Integer id;
     @Column(name = "mate_nombre_materia")
     private String nombreMateria;
-    @Column(name = "mate_codigo")
-    private String codigo;
-    @Column(name = "mate_semestre")
-    private String semestre;
+    @Column(name = "mate_numero_creditos")
+    private String numeroCredito;
+    @ManyToOne
+    @JoinColumn(name = "mate_id_estudiante")
+    private Estudiante estudiante;
 
+    //SET Y GET 
     public Integer getId() {
         return id;
     }
@@ -40,26 +44,23 @@ public class Materia {
         this.nombreMateria = nombreMateria;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getNumeroCredito() {
+        return numeroCredito;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setNumeroCredito(String numeroCredito) {
+        this.numeroCredito = numeroCredito;
     }
 
-    public String getSemestre() {
-        return semestre;
+    public Estudiante getEstudiante() {
+        return estudiante;
     }
 
-    public void setSemestre(String semestre) {
-        this.semestre = semestre;
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 
-    @Override
-    public String toString() {
-        return "Materia [id=" + id + ", nombre=" + nombreMateria + ", codigo=" + codigo + ", semestre=" + semestre + "]";
-    }
+
 
     
 }

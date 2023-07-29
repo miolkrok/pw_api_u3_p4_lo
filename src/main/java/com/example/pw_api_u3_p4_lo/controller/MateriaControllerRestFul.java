@@ -1,6 +1,10 @@
 package com.example.pw_api_u3_p4_lo.controller;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +37,11 @@ public class MateriaControllerRestFul {
     }
 
     @GetMapping(path = "/{identificador}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MateriaTO> consultarPorId(@PathVariable Integer id){
-        return new ResponseEntity<MateriaTO>(this.materiaService.buscarPorId(id), null, 200); 
+    public ResponseEntity<MateriaTO> consultarPorId(@PathVariable Integer identificador){
+        MateriaTO matTo = this.materiaService.buscarPorId(identificador);
+        	Link myLink=linkTo(methodOn(MateriaControllerRestFul.class).consultarPorId(identificador)).withRel("materias");
+		matTo.add(myLink);
+        return new ResponseEntity<>(matTo, null, 200); 
     }
 
 }

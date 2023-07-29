@@ -95,13 +95,14 @@ public class EstudianteControllerRestFul {
     }
 
     @GetMapping(path = "/{cedula}/materias", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<MateriaTO>> buscarPorEstudiante(@PathVariable String cedula){
+    public ResponseEntity<List<MateriaTO>> buscarPorEstudiante(@PathVariable String cedula) {
         List<MateriaTO> lista = this.materiaService.buscarPorCedulaEstudiante(cedula);
-                for (MateriaTO e : lista) {
-            Link myLink = linkTo(methodOn(MateriaControllerRestFul.class).consultarPorId(e.getId())).withRel("");
+        for (MateriaTO e : lista) {
+            Link myLink = linkTo(methodOn(MateriaControllerRestFul.class).consultarPorId(e.getId()))
+                    .withRel("{identificador}");
             e.add(myLink);
         }
-        return new ResponseEntity<>(lista, null, 200);
+        return new ResponseEntity<List<MateriaTO>>(lista, null, 200);
     }
 
     // @PostMapping(consumes = "application/xml")

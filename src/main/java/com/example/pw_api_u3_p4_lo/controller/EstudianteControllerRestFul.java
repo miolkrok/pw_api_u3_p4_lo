@@ -44,7 +44,6 @@ public class EstudianteControllerRestFul {
     // GET
     @GetMapping(path = "/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @JsonIgnore
     public Estudiante consultarPorCedula(@PathVariable String cedula) {
 
         return this.estudianteService.consultarPorCedula(cedula);

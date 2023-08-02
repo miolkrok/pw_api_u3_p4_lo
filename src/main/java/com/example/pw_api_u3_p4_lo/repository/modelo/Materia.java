@@ -1,5 +1,7 @@
 package com.example.pw_api_u3_p4_lo.repository.modelo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,9 +27,10 @@ public class Materia {
     private String numeroCredito;
     @ManyToOne
     @JoinColumn(name = "mate_id_estudiante")
+    @JsonIgnore
     private Estudiante estudiante;
 
-    //SET Y GET 
+    // SET Y GET
     public Integer getId() {
         return id;
     }
@@ -60,7 +63,4 @@ public class Materia {
         this.estudiante = estudiante;
     }
 
-
-
-    
 }

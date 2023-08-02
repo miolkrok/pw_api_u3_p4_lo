@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.example.pw_api_u3_p4_lo.service.IMateriaService;
 import com.example.pw_api_u3_p4_lo.service.to.MateriaTO;
 
 @RestController
+@CrossOrigin("http://localhost:8080/")
 @RequestMapping("/materias")
 public class MateriaControllerRestFul {
 
@@ -33,10 +35,10 @@ public class MateriaControllerRestFul {
         this.materiaService.guardar(materia);
     }
 
-    @GetMapping(path = "/{identificador}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MateriaTO> consultarPorId(@PathVariable Integer identificador){
+    @GetMapping(path = "/{identificador}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MateriaTO> consultarPorId(@PathVariable Integer identificador) {
         MateriaTO matTo = this.materiaService.buscarPorId(identificador);
-        return new ResponseEntity<>(matTo, null, 200); 
+        return new ResponseEntity<>(matTo, null, 200);
     }
 
 }

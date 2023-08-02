@@ -32,8 +32,9 @@ import com.example.pw_api_u3_p4_lo.service.to.MateriaTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @RestController
+@CrossOrigin("http://localhost:8080/")
 @RequestMapping("/estudiantes")
-@CrossOrigin
+
 public class EstudianteControllerRestFul {
 
     @Autowired
@@ -44,7 +45,6 @@ public class EstudianteControllerRestFul {
     // GET
     @GetMapping(path = "/{cedula}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    @JsonIgnore
     public Estudiante consultarPorCedula(@PathVariable String cedula) {
 
         return this.estudianteService.consultarPorCedula(cedula);
@@ -72,12 +72,12 @@ public class EstudianteControllerRestFul {
     // @JsonIgnore
     // public ResponseEntity<List<Estudiante>> consultarTodos() {
 
-    //     List<Estudiante> lista = this.estudianteService.buscarTodos();
-        
-    //     HttpHeaders cabeceras = new HttpHeaders();
-    //     cabeceras.add("detalleMensaje", "Ciudadanos consultados exitosamente");
-    //     cabeceras.add("valorAPI", "Incalculable");
-    //     return new ResponseEntity<>(lista, cabeceras, 228);
+    // List<Estudiante> lista = this.estudianteService.buscarTodos();
+
+    // HttpHeaders cabeceras = new HttpHeaders();
+    // cabeceras.add("detalleMensaje", "Ciudadanos consultados exitosamente");
+    // cabeceras.add("valorAPI", "Incalculable");
+    // return new ResponseEntity<>(lista, cabeceras, 228);
     // }
 
     // GETMAPPING SIN HATEOAS

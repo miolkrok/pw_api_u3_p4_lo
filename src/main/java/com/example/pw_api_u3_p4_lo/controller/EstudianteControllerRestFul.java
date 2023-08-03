@@ -51,6 +51,12 @@ public class EstudianteControllerRestFul {
         // ResponseEntity.status(227).body(this.estudianteService.consultarPorCedula(cedula));
     }
 
+    @GetMapping(path = "/id/{identificador}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public Estudiante consultarPorID(@PathVariable Integer identificador) {
+        return this.estudianteService.buscarPorIdEstudiante(identificador);
+    }
+
     // @GetMapping(path = "/{cedula}")
     // public ResponseEntity<Estudiante> consultarPorCedula(@PathVariable String
     // cedula) {
@@ -129,7 +135,7 @@ public class EstudianteControllerRestFul {
 
     // }
 
-    @PutMapping(path = "/{identificador}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/{identificador}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer identificador) {
         estudiante.setId(identificador);
         this.estudianteService.actualizar(estudiante);

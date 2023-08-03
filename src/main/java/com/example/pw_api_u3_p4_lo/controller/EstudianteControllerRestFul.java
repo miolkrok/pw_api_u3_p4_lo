@@ -29,7 +29,6 @@ import com.example.pw_api_u3_p4_lo.service.IEstudianteService;
 import com.example.pw_api_u3_p4_lo.service.IMateriaService;
 import com.example.pw_api_u3_p4_lo.service.to.EstudianteTO;
 import com.example.pw_api_u3_p4_lo.service.to.MateriaTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @RestController
 @CrossOrigin("http://localhost:8080/")
@@ -115,20 +114,22 @@ public class EstudianteControllerRestFul {
         return new ResponseEntity<List<MateriaTO>>(lista, null, 200);
     }
 
-    // @PostMapping(consumes = "application/xml")
-    // public void guardar(@RequestBody Estudiante estudiante) {
-    // this.estudianteService.guardar(estudiante);
-    // }
-
-    @PostMapping(path = "/{cedula}", produces = "application/xml", consumes = "application/xml")
-    public Estudiante guardar(@RequestBody Estudiante estudiante, @PathVariable String cedula) {
-        estudiante.setCedula(cedula);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void guardar(@RequestBody Estudiante estudiante) {
         this.estudianteService.guardar(estudiante);
-        return this.estudianteService.consultarPorCedula(estudiante.getCedula());
-
     }
 
-    @PutMapping(path = "/{identificador}")
+    // @PostMapping(path = "/{cedula}", produces = "application/json", consumes =
+    // "application/json")
+    // public Estudiante guardar(@RequestBody Estudiante estudiante, @PathVariable
+    // String cedula) {
+    // estudiante.setCedula(cedula);
+    // this.estudianteService.guardar(estudiante);
+    // return this.estudianteService.consultarPorCedula(estudiante.getCedula());
+
+    // }
+
+    @PutMapping(path = "/{identificador}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public void actualizar(@RequestBody Estudiante estudiante, @PathVariable Integer identificador) {
         estudiante.setId(identificador);
         this.estudianteService.actualizar(estudiante);

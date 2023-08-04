@@ -1,6 +1,7 @@
 package com.example.pw_api_u3_p4_lo.service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,11 @@ public class EstudianteServiceImpl implements IEstudianteService {
 
     @Override
     public void guardar(Estudiante estudiante) {
-
+        try {
+            TimeUnit.SECONDS.sleep(20);
+        } catch (InterruptedException e) {
+           e.printStackTrace();
+        }
         this.estuRepo.insertar(estudiante);
     }
 

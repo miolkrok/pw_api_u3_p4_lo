@@ -10,7 +10,7 @@ import com.example.pw_api_u3_p4_lo.repository.IMateriaRepository;
 import com.example.pw_api_u3_p4_lo.repository.modelo.Materia;
 import com.example.pw_api_u3_p4_lo.service.to.MateriaTO;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 
 @Service
 @Transactional

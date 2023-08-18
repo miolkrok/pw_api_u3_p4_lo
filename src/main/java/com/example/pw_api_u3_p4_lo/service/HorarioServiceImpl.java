@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.pw_api_u3_p4_lo.repository.IHorarioRepository;
 import com.example.pw_api_u3_p4_lo.repository.modelo.Horario;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 
 @Service
 @Transactional

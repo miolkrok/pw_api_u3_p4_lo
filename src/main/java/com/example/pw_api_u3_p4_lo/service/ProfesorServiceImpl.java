@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.pw_api_u3_p4_lo.repository.IProfesorRepository;
 import com.example.pw_api_u3_p4_lo.repository.modelo.Profesor;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 @Service
 @Transactional

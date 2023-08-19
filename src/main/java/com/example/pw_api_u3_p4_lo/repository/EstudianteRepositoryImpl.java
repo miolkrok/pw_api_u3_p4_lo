@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 
 import com.example.pw_api_u3_p4_lo.repository.modelo.Estudiante;
 
@@ -76,7 +76,7 @@ public class EstudianteRepositoryImpl implements IEstudianteRepository {
     @Override
     public List<Estudiante> buscarTodos() {
         TypedQuery<Estudiante> myQuery = this.entityManager
-                .createQuery("SELECT e FROM Estudiante e",Estudiante.class);
+                .createQuery("SELECT e FROM Estudiante e", Estudiante.class);
 
         return myQuery.getResultList();
     }

@@ -30,8 +30,11 @@ import com.example.pw_api_u3_p4_lo.service.IMateriaService;
 import com.example.pw_api_u3_p4_lo.service.to.EstudianteTO;
 import com.example.pw_api_u3_p4_lo.service.to.MateriaTO;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @CrossOrigin("http://localhost:8080/")
+@Tag(name = "Estudiantes", description = "Api de estudiantes")
 @RequestMapping("/estudiantes")
 
 public class EstudianteControllerRestFul {
@@ -52,7 +55,7 @@ public class EstudianteControllerRestFul {
     }
 
     @GetMapping(path = "/id/{identificador}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
+    // @ResponseStatus(HttpStatus.OK)
     public Estudiante consultarPorID(@PathVariable Integer identificador) {
         return this.estudianteService.buscarPorIdEstudiante(identificador);
     }

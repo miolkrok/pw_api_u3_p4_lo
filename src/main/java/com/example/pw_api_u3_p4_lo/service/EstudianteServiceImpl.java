@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import com.example.pw_api_u3_p4_lo.repository.IEstudianteRepository;
 import com.example.pw_api_u3_p4_lo.repository.modelo.Estudiante;
@@ -31,7 +31,7 @@ public class EstudianteServiceImpl implements IEstudianteService {
         try {
             TimeUnit.SECONDS.sleep(20);
         } catch (InterruptedException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
         this.estuRepo.insertar(estudiante);
     }
@@ -48,7 +48,7 @@ public class EstudianteServiceImpl implements IEstudianteService {
 
     @Override
     public void actualizarParcialB(String cedulaOri, String cedulaNueva) {
-       this.estuRepo.actualizarParcialB(cedulaOri, cedulaNueva);
+        this.estuRepo.actualizarParcialB(cedulaOri, cedulaNueva);
     }
 
     @Override
@@ -68,18 +68,19 @@ public class EstudianteServiceImpl implements IEstudianteService {
 
     @Override
     public List<Estudiante> buscarTodos() {
-         return this.estuRepo.buscarTodos();
+        return this.estuRepo.buscarTodos();
     }
 
     @Override
     public List<EstudianteTO> buscarTodosTO() {
         List<Estudiante> lista = this.estuRepo.buscarTodos();
-        List<EstudianteTO> listaTO = lista.stream().map(estudiante->this.convertir(estudiante)).collect(Collectors.toList());
+        List<EstudianteTO> listaTO = lista.stream().map(estudiante -> this.convertir(estudiante))
+                .collect(Collectors.toList());
         return listaTO;
     }
 
-    private EstudianteTO convertir(Estudiante estudiante){
-        EstudianteTO est= new EstudianteTO();
+    private EstudianteTO convertir(Estudiante estudiante) {
+        EstudianteTO est = new EstudianteTO();
         est.setId(estudiante.getId());
         est.setApellido(estudiante.getApellido());
         est.setCedula(estudiante.getCedula());

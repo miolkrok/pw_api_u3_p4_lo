@@ -1,14 +1,13 @@
 package com.example.pw_api_u3_p4_lo.security;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
 
 @Component
 public class JwtUtils {
@@ -19,8 +18,20 @@ public class JwtUtils {
     private String jwtSecret;
 
     public boolean validateJwtToken(String token){
+        try{
         Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
         return true;
+        }catch(ExpiredJwtException e){
+            LOG.error(e.getMessage());
+        }
+        catch(SignatureException e){
+            LOG.error("Token invalido {}",e.getMessage());
+        }
+        return false;
+    }
+
+    public String getUsernameFromJwtToken(String token){
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 
 }
